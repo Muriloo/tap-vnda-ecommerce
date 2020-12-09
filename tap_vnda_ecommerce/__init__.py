@@ -82,7 +82,7 @@ def get_api_data(stream,config,bookmark_column):
         API_VERSION,
         ENDPOINTS[stream.tap_stream_id]])
     
-    params = {'start':'20201101','finish':'20201101'}
+    params = {'start':'20201001','finish':'20201001'}
     headers = {'Authorization': "Token \"{}\"".format(config['api_token'])}
     
     page = 1
@@ -93,7 +93,7 @@ def get_api_data(stream,config,bookmark_column):
         params['page'] = page
         req = requests.get(url=url, params=params, headers=headers)
         response = req.json()
-        
+        LOGGER.info(page)
         api_data.extend(req.json())
         page = page + 1
 
