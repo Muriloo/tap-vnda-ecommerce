@@ -82,7 +82,7 @@
         "shipping_price": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "shipping_label": {
@@ -100,13 +100,13 @@
         "subtotal": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "discount_price": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "taxes": {
@@ -118,7 +118,7 @@
         "total": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "tracking_code": {
@@ -318,7 +318,7 @@
         "rebate_discount": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "items": {
@@ -344,37 +344,37 @@
                 "price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "total": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "weight": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "width": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "height": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "length": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "extra": {
@@ -428,7 +428,7 @@
                 "original_price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "place_id": {
