@@ -4,13 +4,13 @@
         "id": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "cart_id": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "code": {
@@ -34,25 +34,25 @@
         "client_id": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "deposit": {
             "type": [
                 "null",
-                "string"
+                "boolean"
             ]
         },
         "card": {
             "type": [
                 "null",
-                "string"
+                "boolean"
             ]
         },
         "slip": {
             "type": [
                 "null",
-                "string"
+                "boolean"
             ]
         },
         "slip_url": {
@@ -112,7 +112,7 @@
         "taxes": {
             "type": [
                 "null",
-                "string"
+                "number"
             ]
         },
         "total": {
@@ -128,9 +128,15 @@
             ]
         },
         "tracking_code_list": {
+            "items": {
+                "type": [
+                    "null",
+                    "string"
+                ]
+            }, 
             "type": [
                 "null",
-                "string"
+                "array"
             ]
         },
         "updated_at": {
@@ -185,7 +191,7 @@
         "installments": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "card_number": {
@@ -195,17 +201,19 @@
             ]
         },
         "extra": {
-            "_ga": {
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            "handling_days": {
-                "type": [
-                    "null",
-                    "string"
-                ]
+            "properties": {
+                "_ga": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "handling_days": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                }
             },
             "type": [
                 "null",
@@ -221,7 +229,7 @@
         "delivery_days": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "card_validity": {
@@ -294,7 +302,7 @@
         "user_id": {
             "type": [
                 "null",
-                "string"
+                "integer"
             ]
         },
         "user_code": {
@@ -322,142 +330,144 @@
             ]
         },
         "items": {
-            "items": {
-                "id": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "variant_id": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "quantity": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "price": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "total": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "weight": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "width": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "height": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "length": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "extra": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "picture_url": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "reference": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "sku": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "product_name": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "variant_name": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "package": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "product_id": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "original_price": {
-                    "type": [
-                        "null",
-                        "number"
-                    ]
-                },
-                "place_id": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "place_name": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "place_city": {
-                    "type": [
-                        "null",
-                        "string"
-                    ]
-                },
-                "type": [
-                    "null",
-                    "object"
-                ]
-            },
             "type": [
                 "null",
                 "array"
-            ]
+            ],
+            "items": {
+                "type": [
+                    "null",
+                    "object"
+                ],
+                "properties": {
+                    "id": {
+                        "type": [
+                            "null",
+                            "integer"
+                        ]
+                    },
+                    "variant_id": {
+                        "type": [
+                            "null",
+                            "integer"
+                        ]
+                    },
+                    "quantity": {
+                        "type": [
+                            "null",
+                            "integer"
+                        ]
+                    },
+                    "price": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "total": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "weight": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "width": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "height": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "length": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "extra": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "picture_url": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "reference": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "sku": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "product_name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "variant_name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "package": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "product_id": {
+                        "type": [
+                            "null",
+                            "integer"
+                        ]
+                    },
+                    "original_price": {
+                        "type": [
+                            "null",
+                            "number"
+                        ]
+                    },
+                    "place_id": {
+                        "type": [
+                            "null",
+                            "integer"
+                        ]
+                    },
+                    "place_name": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    },
+                    "place_city": {
+                        "type": [
+                            "null",
+                            "string"
+                        ]
+                    }
+                }
+            }
         }
     }
 }

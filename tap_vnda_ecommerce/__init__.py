@@ -42,8 +42,26 @@ def load_schemas():
 def discover():
     raw_schemas = load_schemas()
     streams = []
+    # TODO: Review this, I made a quick copy paste
     stream_metadata = {
         'orders': [{
+            "breadcrumb": [],
+            "metadata": {
+                "selected": "false",
+                "replication-method": "INCREMENTAL",
+                "replication-key": "updated_at"
+            }
+        }],
+        'products': [{
+            "breadcrumb": [],
+            "metadata": {
+                "selected": "true",
+                "replication-method": "INCREMENTAL",
+                "replication-key": "updated_at"
+            }
+        }]
+        ,
+        'clients': [{
             "breadcrumb": [],
             "metadata": {
                 "selected": "true",
@@ -75,14 +93,19 @@ def discover():
         )
     return Catalog(streams)
 
-
+# TODO: This part needs to be changed to collect data incrementally and not hard-coded
 def get_api_data(stream,config,bookmark_column):
     url = "/".join([
         config['api_url'],
         API_VERSION,
         ENDPOINTS[stream.tap_stream_id]])
-    
-    params = {'start':'20201001','finish':'20201001'}
+    # TODO: This part was done as quick way to run, it can be re-done
+    REQ_PARAMS = { 
+        'orders': {'start':'20200801','finish':'20200801'},
+        'products': {},
+        'clients': {}
+    }
+    params = REQ_PARAMS[stream.tap_stream_id]
     headers = {'Authorization': "Token \"{}\"".format(config['api_token'])}
     
     page = 1
@@ -120,10 +143,11 @@ def sync(config, state, catalog):
                 key_properties=stream.key_properties,
             )
             
-            # TODO: delete and replace this inline function with your own data retrieval process:
             
             now = singer.utils.now()
             bookmark_column = stream.replication_key
+            
+            # TODO: It's need to use the bookmark to do incremental sync
             # LOGGER.info(bookmark_column)
             # start_date = date_trunc(start_time)
             # end_date = date_trunc(now)
@@ -135,7 +159,6 @@ def sync(config, state, catalog):
             # LOGGER.info(type(start_time))
             # LOGGER.info(start_time)
 
-            # fix wrong transformation of date-time format
             start_time_str = singer.get_bookmark(state, stream.tap_stream_id, bookmark_column, config['start_date'])
             start_time = datetime.strptime(start_time_str,'%Y-%m-%dT%H:%M:%SZ').astimezone()
             
@@ -147,10 +170,10 @@ def sync(config, state, catalog):
                 transformed_record = transformer.transform(
                                 record, stream.schema.to_dict(), metadata.to_map(stream.metadata),
                             )
-                # write one or more rows to the stream:
                 
+                # write one or more rows to the stream:    
                 singer.write_records(stream.tap_stream_id, [transformed_record])
-                #LOGGER.info(transformed_record[bookmark_column])
+            
                 
                 if bookmark_column:
                     if is_sorted:
