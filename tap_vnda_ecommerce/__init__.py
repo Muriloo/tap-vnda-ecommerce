@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os
 import json
 import singer
@@ -92,10 +91,6 @@ def discover():
             )
         )
     return Catalog(streams)
- 
-
-
-
 
 # TODO: This part needs to be changed to collect data incrementally and not hard-coded
 def get_api_data(stream,config,bookmark_column):
@@ -167,9 +162,8 @@ def sync(config, state, catalog):
             start_time = datetime.strptime(start_time_str,'%Y-%m-%dT%H:%M:%SZ').astimezone()
             
             tap_data = get_api_data(stream,config,bookmark_column)
-            Bookmark_field=None
+
             max_bookmark = None
-            
             for record in tap_data:
                 # TODO: place type conversions or transformations here
                 transformed_record = transformer.transform(
@@ -194,46 +188,30 @@ def sync(config, state, catalog):
                         else:
                             max_bookmark = max(max_bookmark,record_bookmark)
 
-                        
+                for stream in streams:
+                    bookmark = get_bookmark(stream)
+
+                    if bookmark < now():
+                        start_date = bookmark
+                        end_date = now()
+                        data = get_data(stream,start_date,end_date)
+
+                    if record[bookmark_key] >= start:
+                        singer.write_record("forms", record, catalog.get('stream_alias'), time_extracted=time_extracted)
+                    if record[bookmark_key] >= max_bk_value:
+                        max_bk_value = record[bookmark_key]
+
+   
                 if bookmark_column and not is_sorted:
                     singer.write_state({stream.tap_stream_id: max_bookmark.strftime(BOOKMARK_DATE_FORMAT)})
+
+    STATE = singer.write_bookmark(STATE, 'forms', bookmark_key, max_bk_value)
+    singer.write_state(STATE)
+
     
-                if bookmark_field and (bookmark_field in transformed_record):
-                            if (max_bookmark_value is None) or \
-                                (transformed_record[bookmark_field] > max_bookmark_value):
-                                max_bookmark_value = transformed_record[bookmark_field]
-
-                            if bookmark_field and (bookmark_field in transformed_record):
-                                if bookmark_type == 'integer':
-                                    if transformed_record[bookmark_field] >= last_integer:
-                                        write_record(stream_name, transformed_record, time_extracted=time_extracted)
-                                        counter.increment()
-                            elif bookmark_type == 'datetime':
-                                last_dttm = transformer._transform_datetime(last_datetime)
-                                bookmark_dttm = transformer._transform_datetime(record[bookmark_field])
-                                if bookmark_dttm >= last_dttm:
-                                    write_record(stream_name, transformed_record, time_extracted=time_extracted)
-                                    counter.increment()
-                else:
-                    write_record(stream_name, transformed_record, time_extracted=time_extracted)
-                    counter.increment()
-
-                return max_bookmark_value, counter.value
-
-        last_datetime = None
-        last_integer = None
-        max_bookmark_value = None
-
-                if bookmark_type == 'integer':
-                    last_integer = get_bookmark(state, stream_name, 0)
-                    max_bookmark_value = last_integer
-                else:
-                    last_datetime = get_bookmark(state, stream_name, start_date)
-                    max_bookmark_value = last_datetime
-
-                write_schema(catalog, stream_name)
-
     return
+
+
 @utils.handle_top_exception(LOGGER)
 def main():
     # Parse command line arguments
