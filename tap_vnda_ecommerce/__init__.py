@@ -12,15 +12,11 @@ LOGGER = singer.get_logger()
 def main():
     args = singer.utils.parse_args([])
 
-    is_sandbox = args.config.get('sandbox')
-    if isinstance(is_sandbox, str):
-        is_sandbox = args.config.get('sandbox') == 'true'
-    catalog = args.catalog if args.catalog else discover(is_sandbox)
+    catalog = args.catalog if args.catalog else discover()
 
     if args.discover:
         write_catalog(catalog)
     else:
-        LOGGER.info('oi')
         sync(args.config, args.state, catalog)
 
 if __name__ == '__main__':

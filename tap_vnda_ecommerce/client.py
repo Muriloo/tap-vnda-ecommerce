@@ -18,7 +18,7 @@ class VndaEcommerceClient():
         # define request parameters
         params = {'start': start_date,'finish': end_date}
         page = 1
-        
+        LOGGER.info("Start Date: {0}, Finish Date: {1}".format(start_date,end_date))
         response = [1]
         # iterate through VNDA pages
         while response:
