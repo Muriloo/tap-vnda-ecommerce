@@ -5,8 +5,8 @@ setup(
     name="tap-vnda-ecommerce",
     version="0.1.0",
     description="Singer.io tap for extracting data",
-    author="Stitch",
-    url="http://singer.io",
+    author="Muriloo",
+    url="https://github.com/Muriloo",
     classifiers=["Programming Language :: Python :: 3 :: Only"],
     py_modules=["tap_vnda_ecommerce"],
     install_requires=[
