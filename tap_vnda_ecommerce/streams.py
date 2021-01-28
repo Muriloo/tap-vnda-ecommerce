@@ -10,7 +10,7 @@ class Stream:
 
 
 class Orders(Stream):
-    tap_stream_id = 'orders'
+    tap_stream_id = 'vnda_orders'
     key_properties = ['id']
     replication_method = 'INCREMENTAL'
     valid_replication_keys = ['updated_at']
@@ -62,5 +62,5 @@ class Orders(Stream):
 
 
 STREAMS = {
-    'orders': Orders
+    'vnda_orders': Orders
 }
