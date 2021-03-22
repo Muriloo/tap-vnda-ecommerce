@@ -29,7 +29,7 @@ This tap requires a config.json which specifies details about API URL, API Token
 
 ## Streams
 
-[**orders**](https://ajuda.bling.com.br/hc/pt-br/articles/360046424094-GET-pedidos)
+[**orders**](https://demo.vnda.com.br/api/v2/docs/index.html#operation/get-api-v2-orders)
 - Endpoint: https://yourdomain.com.br/api/v2/orders/
 - Primary Key: id
 - Replication strategy:
